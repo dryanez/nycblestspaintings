@@ -231,7 +231,7 @@ export default function ShowcaseView({ projects, onAddLead }: ShowcaseViewProps)
             <img 
               src="https://images.squarespace-cdn.com/content/v1/66a77acb211ac10e3bf86bec/1722251981226-SYQVHO5AJ0PF4EJWRTDQ/Company+Logo.png?format=1500w" 
               alt="NYC Blest Logo" 
-              className="h-28 sm:h-36 md:h-48 w-auto object-contain drop-shadow-sm hover:scale-105 transition-transform duration-500"
+              className="h-16 sm:h-20 w-auto object-contain drop-shadow-sm hover:scale-105 transition-transform duration-500"
               referrerPolicy="no-referrer"
             />
           </div>
