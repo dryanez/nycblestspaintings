@@ -199,8 +199,13 @@ export default function AdminView({
         }
       }
 
+      // Generate a URL-friendly slug from the project name
+      const slugify = (text: string) => text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+      const newSlug = slugify(name);
+
       const savedAlbum: Project = {
         id: targetId,
+        slug: editingProjectId ? (projects.find(p => p.id === editingProjectId)?.slug || newSlug) : newSlug,
         name,
         description,
         category,
@@ -226,7 +231,7 @@ export default function AdminView({
   };
 
   const handleShareAlbum = async (proj: Project) => {
-    const url = `${window.location.origin}/?project=${proj.id}`;
+    const url = `${window.location.origin}/?project=${proj.slug || proj.id}`;
     let descriptionText = proj.description ? `${proj.description}\n` : '';
     
     // Create a concise text

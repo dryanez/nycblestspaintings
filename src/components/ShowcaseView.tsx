@@ -73,7 +73,7 @@ export default function ShowcaseView({ projects, onAddLead }: ShowcaseViewProps)
       const params = new URLSearchParams(window.location.search);
       const projectId = params.get('project');
       if (projectId) {
-        const targetProj = projects.find(p => p.id === projectId);
+        const targetProj = projects.find(p => p.id === projectId || p.slug === projectId);
         if (targetProj) {
           openProjectGallery(targetProj);
           // Clean the URL so refreshing doesn't keep locking them into the modal if they close it
