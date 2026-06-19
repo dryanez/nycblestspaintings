@@ -231,14 +231,10 @@ export default function ShowcaseView({ projects, onAddLead }: ShowcaseViewProps)
             <img 
               src="https://images.squarespace-cdn.com/content/v1/66a77acb211ac10e3bf86bec/1722251981226-SYQVHO5AJ0PF4EJWRTDQ/Company+Logo.png?format=1500w" 
               alt="NYC Blest Logo" 
-              className="h-16 sm:h-20 w-auto object-contain"
+              className="h-28 sm:h-36 md:h-48 w-auto object-contain drop-shadow-sm hover:scale-105 transition-transform duration-500"
               referrerPolicy="no-referrer"
             />
           </div>
-
-          <h1 className="font-display text-4xl sm:text-6xl md:text-7xl font-extrabold text-neutral-900 tracking-tight leading-none">
-            NYC BLEST <span className="text-brand-gold font-light block sm:inline">PAINTINGS</span>
-          </h1>
           <p className="mt-6 text-base sm:text-lg text-neutral-600 max-w-2xl mx-auto font-light leading-relaxed">
             Uncompromising quality. Furniture-grade spraying, interior detailing, and historic brownstone restoration across Manhattan and Brooklyn.
           </p>
