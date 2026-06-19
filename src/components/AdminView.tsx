@@ -187,7 +187,7 @@ export default function AdminView({
 
     setSaveStatus('saving');
     try {
-      const targetId = editingProjectId || `proj-${Date.now()}`;
+      const targetId = editingProjectId || crypto.randomUUID();
       
       // Preserve existing createdAt if editing
       let originalCreatedAt = new Date().toISOString();
