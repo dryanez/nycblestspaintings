@@ -21,7 +21,8 @@ import {
   ExternalLink,
   ShieldAlert,
   Pencil,
-  Edit3
+  Edit3,
+  Share2
 } from 'lucide-react';
 import { supabase } from '../supabase';
 
@@ -221,6 +222,34 @@ export default function AdminView({
     } catch (err) {
       console.error(err);
       setSaveStatus('fail');
+    }
+  };
+
+  const handleShareAlbum = async (proj: Project) => {
+    const url = `${window.location.origin}/?project=${proj.id}`;
+    let descriptionText = proj.description ? `${proj.description}\n` : '';
+    
+    // Create a concise text
+    const shareText = `Check out this project: ${proj.name}\n${descriptionText}\nLink: ${url}`;
+    
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: proj.name,
+          text: `Check out this project: ${proj.name}\n${descriptionText}`,
+          url: url
+        });
+      } catch (err) {
+        console.log('Share canceled or failed', err);
+      }
+    } else {
+      try {
+        await navigator.clipboard.writeText(shareText);
+        alert('Share text and link copied to clipboard!');
+      } catch (err) {
+        console.error('Failed to copy text', err);
+        alert('Copy this link: ' + url);
+      }
     }
   };
 
@@ -677,6 +706,14 @@ export default function AdminView({
                 </div>
 
                 <div className="flex gap-1.5 flex-shrink-0">
+                  <button
+                    onClick={() => handleShareAlbum(proj)}
+                    className="p-2.5 text-neutral-500 hover:text-brand-gold bg-white border border-neutral-250 rounded-lg shadow-2xs hover:bg-neutral-50 hover:border-brand-gold/30 transition-all cursor-pointer"
+                    title="Share Album Link"
+                  >
+                    <Share2 className="w-4 h-4" />
+                  </button>
+
                   <button
                     onClick={() => handleEditProjectClick(proj)}
                     className="p-2.5 text-neutral-500 hover:text-brand-gold bg-white border border-neutral-250 rounded-lg shadow-2xs hover:bg-neutral-50 hover:border-brand-gold/30 transition-all cursor-pointer"

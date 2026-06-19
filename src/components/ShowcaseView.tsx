@@ -67,6 +67,22 @@ export default function ShowcaseView({ projects, onAddLead }: ShowcaseViewProps)
   const [isPhotoUploading, setIsPhotoUploading] = useState<boolean>(false);
   const [quoteSuccess, setQuoteSuccess] = useState(false);
 
+  // Deep linking logic
+  useEffect(() => {
+    if (projects && projects.length > 0) {
+      const params = new URLSearchParams(window.location.search);
+      const projectId = params.get('project');
+      if (projectId) {
+        const targetProj = projects.find(p => p.id === projectId);
+        if (targetProj) {
+          openProjectGallery(targetProj);
+          // Clean the URL so refreshing doesn't keep locking them into the modal if they close it
+          window.history.replaceState({}, document.title, window.location.pathname);
+        }
+      }
+    }
+  }, [projects]);
+
   // Filter projects by selected category
   const filteredProjects = selectedCategory === 'All' 
     ? projects 
