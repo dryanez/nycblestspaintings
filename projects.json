@@ -1,0 +1,86 @@
+[
+  {
+    "id": "seed-1",
+    "name": "Upper East Side Classic duplex",
+    "description": "Sleek visual refresh of a luxury living room and custom cabinetry. We applied premium eggshell matte paint on double-height walls, combined with flawless semi-gloss hand-painted details on window trims and integrated crown moldings.",
+    "category": "Interior",
+    "createdAt": "2026-05-15T00:00:00.000Z",
+    "photos": [
+      {
+        "id": "seed-1-p1",
+        "url": "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1200&q=80",
+        "type": "Standard",
+        "caption": "Pristine living room styling, hand-rolled with low-VOC interior gray."
+      },
+      {
+        "id": "seed-1-p2",
+        "url": "https://images.unsplash.com/photo-1615874959474-d609969a20ed?auto=format&fit=crop&w=1200&q=80",
+        "type": "Standard",
+        "caption": "Detailed finish around baseboards and custom woodwork."
+      }
+    ]
+  },
+  {
+    "id": "seed-2",
+    "name": "Brooklyn Heights Brownstone",
+    "description": "A comprehensive historic brownstone exterior façade restoration. This involved surface scraping, cracks repaired with breathable masonry filler, and three distinct layers of premium weatherproof elastomeric protective paint.",
+    "category": "Exterior",
+    "createdAt": "2026-05-24T00:00:00.000Z",
+    "photos": [
+      {
+        "id": "seed-2-before",
+        "url": "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1200&q=80",
+        "type": "Before",
+        "caption": "Before: Exterior façade weathered and stained."
+      },
+      {
+        "id": "seed-2-after",
+        "url": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80",
+        "type": "After",
+        "caption": "After: Restored to state-of-the-art visual glory using rich modern gray."
+      }
+    ]
+  },
+  {
+    "id": "seed-3",
+    "name": "Chelsea Kitchen Cabinet Lacquering",
+    "description": "Transforming solid oak wood storage units. The work utilized airless fine-finish spraying of premium polyurethane polyurethane lacquer in Stonington Slate Gray, changing the room dramatically without the cost of a full rebuild.",
+    "category": "Cabinets",
+    "createdAt": "2026-06-01T00:00:00.000Z",
+    "photos": [
+      {
+        "id": "seed-3-before",
+        "url": "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=80",
+        "type": "Before",
+        "caption": "Before: Dull and outdated golden oak finish."
+      },
+      {
+        "id": "seed-3-after",
+        "url": "https://images.unsplash.com/photo-1556912173-3bb406ef7e77?auto=format&fit=crop&w=1200&q=80",
+        "type": "After",
+        "caption": "After: Striking modern cabinets sprayed to furniture-grade perfection."
+      }
+    ]
+  },
+  {
+    "id": "seed-4",
+    "name": "Soho Creative Loft Workspace",
+    "description": "Sleek commercial space highlighting bold accent walls, industrial concrete columns, and beautiful white open ceilings. Focused on creating a vibrant collaborative space for a modern design studio.",
+    "category": "Commercial",
+    "createdAt": "2026-06-10T00:00:00.000Z",
+    "photos": [
+      {
+        "id": "seed-4-p1",
+        "url": "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=1200&q=80",
+        "type": "Standard",
+        "caption": "Symmetrical administrative spaces featuring matte charcoal support walls."
+      },
+      {
+        "id": "seed-4-p2",
+        "url": "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80",
+        "type": "Standard",
+        "caption": "Conference room painting detailing matte borders."
+      }
+    ]
+  }
+]
