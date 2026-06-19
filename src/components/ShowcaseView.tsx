@@ -44,6 +44,12 @@ export default function ShowcaseView({ projects, onAddLead }: ShowcaseViewProps)
   const [activeProject, setActiveProject] = useState<Project | null>(null);
   const [activePhotoIndex, setActivePhotoIndex] = useState<number>(0);
   
+  // Swipe logic states
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+  const [showSwipeHint, setShowSwipeHint] = useState<boolean>(false);
+  const minSwipeDistance = 50;
+  
   // Detailed Quote Formulator State (Replaces simple cost calculator)
   const [quoteOpen, setQuoteOpen] = useState(false);
   const [calcStep, setCalcStep] = useState(1);
@@ -172,6 +178,30 @@ export default function ShowcaseView({ projects, onAddLead }: ShowcaseViewProps)
   const openProjectGallery = (proj: Project) => {
     setActiveProject(proj);
     setActivePhotoIndex(0);
+    setShowSwipeHint(true);
+    setTimeout(() => setShowSwipeHint(false), 3000); // Hide hint after 3 seconds
+  };
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEndHandler = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+    if (isLeftSwipe) {
+      handleNextPhoto();
+    }
+    if (isRightSwipe) {
+      handlePrevPhoto();
+    }
   };
 
   const handleNextPhoto = () => {
@@ -414,11 +444,11 @@ export default function ShowcaseView({ projects, onAddLead }: ShowcaseViewProps)
             {/* Interactive sliders or standard render */}
             <div className="w-full relative flex flex-col md:flex-row gap-8 items-center justify-center">
               
-              {/* Previous Photo Button */}
+              {/* Previous Photo Button - Hidden on mobile in favor of swipe */}
               {activeProject.photos.length > 1 && (
                 <button
                   onClick={handlePrevPhoto}
-                  className="absolute left-2 md:relative md:left-0 z-25 p-3 rounded-full bg-neutral-900/80 border border-neutral-850 text-white hover:bg-brand-gold hover:text-black hover:border-transparent transition-all cursor-pointer shadow-lg"
+                  className="hidden md:block absolute left-2 md:relative md:left-0 z-25 p-3 rounded-full bg-neutral-900/80 border border-neutral-850 text-white hover:bg-brand-gold hover:text-black hover:border-transparent transition-all cursor-pointer shadow-lg"
                 >
                   <ChevronLeft className="w-6 h-6" />
                 </button>
@@ -444,8 +474,25 @@ export default function ShowcaseView({ projects, onAddLead }: ShowcaseViewProps)
                   </div>
                 ) : (
                   // Simple high resolution slide display
-                  <div className="w-full flex flex-col items-center bg-neutral-950 p-2 rounded-2xl border border-neutral-900">
-                    <div className="relative w-full h-[320px] md:h-[450px] overflow-hidden rounded-xl">
+                  <div 
+                    className="w-full flex flex-col items-center bg-neutral-950 p-2 md:p-2 rounded-2xl md:border md:border-neutral-900 relative"
+                    onTouchStart={onTouchStart}
+                    onTouchMove={onTouchMove}
+                    onTouchEnd={onTouchEndHandler}
+                  >
+                    
+                    {/* Animated Swipe Hint Overlay on Mobile */}
+                    {showSwipeHint && activeProject.photos.length > 1 && (
+                      <div className="absolute inset-0 z-30 flex items-center justify-center pointer-events-none md:hidden">
+                        <div className="bg-black/60 text-white px-4 py-2 rounded-full font-mono text-xs flex items-center gap-2 animate-pulse">
+                          <ChevronLeft className="w-4 h-4 animate-bounce-x" />
+                          Swipe
+                          <ChevronRight className="w-4 h-4 animate-bounce-x-reverse" />
+                        </div>
+                      </div>
+                    )}
+
+                    <div className="relative w-full h-[65vh] md:h-[75vh] overflow-hidden rounded-xl animate-fade-in" key={activePhotoIndex}>
                       {isVideoUrl(activeProject.photos[activePhotoIndex].url, activeProject.photos[activePhotoIndex].mediaType) ? (
                         <video
                           src={activeProject.photos[activePhotoIndex].url}
@@ -487,11 +534,11 @@ export default function ShowcaseView({ projects, onAddLead }: ShowcaseViewProps)
                 )}
               </div>
 
-              {/* Next Photo Button */}
+              {/* Next Photo Button - Hidden on mobile */}
               {activeProject.photos.length > 1 && (
                 <button
                   onClick={handleNextPhoto}
-                  className="absolute right-2 md:relative md:right-0 z-25 p-3 rounded-full bg-neutral-900/80 border border-neutral-850 text-white hover:bg-brand-gold hover:text-black hover:border-transparent transition-all cursor-pointer shadow-lg"
+                  className="hidden md:block absolute right-2 md:relative md:right-0 z-25 p-3 rounded-full bg-neutral-900/80 border border-neutral-850 text-white hover:bg-brand-gold hover:text-black hover:border-transparent transition-all cursor-pointer shadow-lg"
                 >
                   <ChevronRight className="w-6 h-6" />
                 </button>

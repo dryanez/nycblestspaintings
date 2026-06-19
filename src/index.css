@@ -32,3 +32,20 @@
   background: #A1A1AA;
 }
 
+@keyframes bounce-x {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(-25%); }
+}
+
+@keyframes bounce-x-reverse {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(25%); }
+}
+
+.animate-bounce-x {
+  animation: bounce-x 1s infinite;
+}
+
+.animate-bounce-x-reverse {
+  animation: bounce-x-reverse 1s infinite;
+}
