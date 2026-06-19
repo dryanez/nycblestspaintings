@@ -37,12 +37,22 @@ export default function App() {
       // Fetch albums
       const { data: projData, error: projError } = await supabase.from('projects').select('*').order('created_at', { ascending: false });
       if (projError) throw projError;
-      setProjects(projData as Project[] || []);
+      
+      const mappedProjects = (projData || []).map(p => ({
+        ...p,
+        createdAt: p.created_at
+      }));
+      setProjects(mappedProjects as Project[]);
 
       // Fetch estimate leads
       const { data: leadData, error: leadError } = await supabase.from('leads').select('*').order('created_at', { ascending: false });
       if (leadError) throw leadError;
-      setLeads(leadData || []);
+      
+      const mappedLeads = (leadData || []).map(l => ({
+        ...l,
+        createdAt: l.created_at
+      }));
+      setLeads(mappedLeads);
     } catch (err) {
       console.error('Error fetching data from Supabase:', err);
     } finally {
@@ -53,7 +63,10 @@ export default function App() {
   // Callback to add project
   const handleAddProject = async (newProject: Project) => {
     try {
-      const { error } = await supabase.from('projects').upsert(newProject);
+      const { createdAt, ...rest } = newProject;
+      const dbProject = { ...rest, created_at: createdAt };
+      
+      const { error } = await supabase.from('projects').upsert(dbProject);
       if (error) throw error;
       
       setProjects((prev) => {
@@ -67,6 +80,7 @@ export default function App() {
       });
     } catch (err) {
       console.error('Error saving portfolio album:', err);
+      throw err;
     }
   };
 
@@ -84,11 +98,15 @@ export default function App() {
   // Callback to add estimate lead
   const handleAddLead = async (newLead: any) => {
     try {
-      const { error } = await supabase.from('leads').upsert(newLead);
+      const { createdAt, ...rest } = newLead;
+      const dbLead = { ...rest, created_at: createdAt };
+
+      const { error } = await supabase.from('leads').upsert(dbLead);
       if (error) throw error;
       setLeads((prev) => [newLead, ...prev]);
     } catch (err) {
       console.error('Error saving client request lead:', err);
+      throw err;
     }
   };
 
